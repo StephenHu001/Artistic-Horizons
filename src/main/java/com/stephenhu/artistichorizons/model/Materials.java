@@ -5,34 +5,27 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * 
+ * @author Stephen Hu
  * @TableName t_materials
  */
 @TableName(value ="t_materials")
 @Data
+@Schema(description = "艺术形式（材质）")
 public class Materials implements Serializable {
-    /**
-     * 
-     */
     @TableId
+    @Schema(description = "材质主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long materialId;
-
-    /**
-     * 
-     */
+    @Schema(description = "材质名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String materialName;
-
-    /**
-     * 
-     */
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer isDel;
 
     @TableField(exist = false)

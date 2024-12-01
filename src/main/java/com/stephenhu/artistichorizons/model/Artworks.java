@@ -5,76 +5,44 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * 
+ * @author Stephen Hu
  * @TableName t_artworks
  */
 @TableName(value ="t_artworks")
 @Data
+@Schema(description = "艺术品")
 public class Artworks implements Serializable {
-    /**
-     * 
-     */
     @TableId
+    @Schema(description = "艺术品主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long artworkId;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术品名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String artworkName;
-
-    /**
-     * 
-     */
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date createTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术品描述", requiredMode = Schema.RequiredMode.REQUIRED)
     private String description;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术品创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer isDel;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联材质主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long materialId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联颜色主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long colorId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联艺术家主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long artistId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联事件主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long eventId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联藏馆主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long collectionId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联主题主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long themeId;
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

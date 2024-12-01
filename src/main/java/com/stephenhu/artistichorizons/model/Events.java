@@ -5,39 +5,29 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * 
+ * @author Stephen Hu
  * @TableName t_events
  */
 @TableName(value ="t_events")
 @Data
+@Schema(description = "事件")
 public class Events implements Serializable {
-    /**
-     * 
-     */
     @TableId
+    @Schema(description = "事件主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long eventId;
-
-    /**
-     * 
-     */
+    @Schema(description = "事件名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String eventName;
-
-    /**
-     * 
-     */
+    @Schema(description = "事件描述", requiredMode = Schema.RequiredMode.REQUIRED)
     private String description;
-
-    /**
-     * 
-     */
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer isDel;
 
     @TableField(exist = false)

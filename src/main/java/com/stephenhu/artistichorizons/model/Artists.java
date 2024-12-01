@@ -5,8 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 /**
  * 
  * @author Stephen Hu
@@ -14,56 +15,28 @@ import lombok.Data;
  */
 @TableName(value ="t_artists")
 @Data
+@Schema(description = "艺术家")
 public class Artists implements Serializable {
-    /**
-     * 
-     */
     @TableId
+    @Schema(description = "艺术家主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long artistId;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术家名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String artistName;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术家出生日期", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date birthDate;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术家逝世日期", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date deathDate;
-
-    /**
-     * 
-     */
+    @Schema(description = "艺术家描述", requiredMode = Schema.RequiredMode.REQUIRED)
     private String description;
-
-    /**
-     * 
-     */
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer isDel;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联城市主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long cityId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联艺术主题主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long themeId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联事件主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long eventId;
 
     @TableField(exist = false)

@@ -5,51 +5,34 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * 
+ * @author Stephen Hu
  * @TableName t_cities
  */
 @TableName(value ="t_cities")
 @Data
+@Schema(description = "城市")
 public class Cities implements Serializable {
-    /**
-     * 
-     */
     @TableId
+    @Schema(description = "城市主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long cityId;
-
-    /**
-     * 
-     */
+    @Schema(description = "城市名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String cityName;
-
-    /**
-     * 
-     */
+    @Schema(description = "城市描述", requiredMode = Schema.RequiredMode.REQUIRED)
     private String description;
-
-    /**
-     * 
-     */
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer isDel;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联地区主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long districtId;
-
-    /**
-     * 
-     */
+    @Schema(description = "外键，关联邮政编码主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long postalCodeId;
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

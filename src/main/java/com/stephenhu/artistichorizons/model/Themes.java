@@ -12,19 +12,17 @@ import lombok.Data;
 /**
  * 
  * @author Stephen Hu
- * @TableName t_countries
+ * @TableName t_themes
  */
-@TableName(value ="t_countries")
+@TableName(value ="t_themes")
 @Data
-@Schema(description = "国家")
-public class Countries implements Serializable {
+@Schema(description = "艺术主题")
+public class Themes implements Serializable {
     @TableId
-    @Schema(description = "国家主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Long countryId;
-    @Schema(description = "国家名称", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String countryName;
-    @Schema(description = "国家描述", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String description;
+    @Schema(description = "主题主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
+    private Long themeId;
+    @Schema(description = "主题名称", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String themeName;
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
     @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -44,10 +42,9 @@ public class Countries implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Countries other = (Countries) that;
-        return (this.getCountryId() == null ? other.getCountryId() == null : this.getCountryId().equals(other.getCountryId()))
-            && (this.getCountryName() == null ? other.getCountryName() == null : this.getCountryName().equals(other.getCountryName()))
-            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+        Themes other = (Themes) that;
+        return (this.getThemeId() == null ? other.getThemeId() == null : this.getThemeId().equals(other.getThemeId()))
+            && (this.getThemeName() == null ? other.getThemeName() == null : this.getThemeName().equals(other.getThemeName()))
             && (this.getDateTime() == null ? other.getDateTime() == null : this.getDateTime().equals(other.getDateTime()))
             && (this.getIsDel() == null ? other.getIsDel() == null : this.getIsDel().equals(other.getIsDel()));
     }
@@ -56,9 +53,8 @@ public class Countries implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getCountryId() == null) ? 0 : getCountryId().hashCode());
-        result = prime * result + ((getCountryName() == null) ? 0 : getCountryName().hashCode());
-        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        result = prime * result + ((getThemeId() == null) ? 0 : getThemeId().hashCode());
+        result = prime * result + ((getThemeName() == null) ? 0 : getThemeName().hashCode());
         result = prime * result + ((getDateTime() == null) ? 0 : getDateTime().hashCode());
         result = prime * result + ((getIsDel() == null) ? 0 : getIsDel().hashCode());
         return result;
@@ -70,9 +66,8 @@ public class Countries implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", countryId=").append(countryId);
-        sb.append(", countryName=").append(countryName);
-        sb.append(", description=").append(description);
+        sb.append(", themeId=").append(themeId);
+        sb.append(", themeName=").append(themeName);
         sb.append(", dateTime=").append(dateTime);
         sb.append(", isDel=").append(isDel);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -5,39 +5,29 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * 
+ * @author Stephen Hu
  * @TableName t_colors
  */
 @TableName(value ="t_colors")
 @Data
+@Schema(description = "颜色")
 public class Colors implements Serializable {
-    /**
-     * 
-     */
     @TableId
+    @Schema(description = "颜色主键ID", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long colorId;
-
-    /**
-     * 
-     */
+    @Schema(description = "颜色名称", requiredMode = Schema.RequiredMode.REQUIRED)
     private String colorName;
-
-    /**
-     * 
-     */
+    @Schema(description = "颜色RGB值", requiredMode = Schema.RequiredMode.REQUIRED)
     private String colorRgb;
-
-    /**
-     * 
-     */
+    @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private Date dateTime;
-
-    /**
-     * 
-     */
+    @Schema(description = "是否删除", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer isDel;
 
     @TableField(exist = false)
