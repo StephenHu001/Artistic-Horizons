@@ -7,7 +7,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 
  * @author Stephen Hu
@@ -15,6 +19,8 @@ import lombok.Data;
  */
 @TableName(value ="t_artists")
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Schema(description = "艺术家")
 public class Artists implements Serializable {
     @TableId

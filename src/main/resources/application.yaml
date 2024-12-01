@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: ArtisticHorizons
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/artistic_horizons?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 20021004@Dahuzi
+
+server:
+  port: 8888
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.stephenhu.artistic_horizons.model
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+snowflake:
+  start-time-stamp: 1577808000000
+  work-id: 1
+  data-center-id: 1
+
+

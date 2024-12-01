@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -16,6 +19,8 @@ import lombok.Data;
  */
 @TableName(value ="t_artworks")
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Schema(description = "艺术品")
 public class Artworks implements Serializable {
     @TableId
