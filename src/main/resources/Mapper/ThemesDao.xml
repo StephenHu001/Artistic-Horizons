@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.ThemesDao">
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Themes">
+        <id property="themeId" column="theme_id" jdbcType="BIGINT"/>
+        <result property="themeName" column="theme_name" jdbcType="VARCHAR"/>
+        <result property="dateTime" column="date_time" jdbcType="TIMESTAMP"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+    </resultMap>
+    <insert id="insert">
+        insert into t_themes(theme_id,theme_name,date_time)
+        values(#{themeId},#{themeName},now())
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT theme_id,
+               theme_name,
+               date_time,
+               is_del
+        FROM t_themes
+        WHERE theme_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT theme_id,
+               theme_name,
+               date_time,
+               is_del
+        FROM t_themes
+        WHERE theme_id = #{ThemeId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_themes
+        SET is_del = 0
+        WHERE theme_id = #{themeId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_themes
+        SET is_del = 1
+        WHERE theme_id = #{themeId}
+    </update>
+
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT theme_name,
+               is_del
+        FROM t_themes
+        WHERE theme_name=#{themeName}
+          AND is_del = 1;
+    </select>
+
+</mapper>
+
+

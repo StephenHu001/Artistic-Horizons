@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.ImgsDao">
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Imgs">
+        <id column="img_id" property="imgId" jdbcType="BIGINT"/>
+        <result property="imgPath" column="img_path" jdbcType="VARCHAR"/>
+        <result column="date_time" property="dateTime" jdbcType="TIMESTAMP"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="colorId" column="color_id" jdbcType="BIGINT"/>
+        <result property="materialId" column="material_id" jdbcType="BIGINT"/>
+        <result property="countryId" column="country_id" jdbcType="BIGINT"/>
+        <result property="districtId" column="district_id" jdbcType="BIGINT"/>
+        <result property="cityId" column="city_id" jdbcType="BIGINT"/>
+        <result property="collectionId" column="collection_id" jdbcType="BIGINT"/>
+        <result property="figureId" column="figure_id" jdbcType="BIGINT"/>
+        <result property="artistId" column="artist_id" jdbcType="BIGINT"/>
+        <result property="themeId" column="theme_id" jdbcType="BIGINT"/>
+        <result property="eventId" column="event_id" jdbcType="BIGINT"/>
+        <result property="artworkId" column="artwork_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.stephenhu.artistichorizons.pojo.Imgs">
+        INSERT INTO t_imgs (img_id,
+                            img_path,
+                            date_time,
+                            color_id,
+                            material_id,
+                            country_id,
+                            district_id,
+                            city_id,
+                            collection_id,
+                            figure_id,
+                            artist_id,
+                            theme_id,
+                            event_id,
+                            artwork_id)
+        VALUES (#{imgId},
+                #{imgPath},
+                now(),
+                #{colorId},
+                #{materialId},
+                #{countryId},
+                #{districtId},
+                #{cityId},
+                #{collectionId},
+                #{figureId},
+                #{artistId},
+                #{themeId},
+                #{eventId},
+                #{artworkId})
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+            img_id,
+            img_path,
+            date_time,
+            is_del,
+            color_id,
+            material_id,
+            country_id,
+            district_id,
+            city_id,
+            collection_id,
+            figure_id,
+            artist_id,
+            theme_id,
+            event_id,
+            artwork_id
+        FROM t_imgs
+        WHERE img_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT
+            img_id,
+            img_path,
+            date_time,
+            is_del,
+            color_id,
+            material_id,
+            country_id,
+            district_id,
+            city_id,
+            collection_id,
+            figure_id,
+            artist_id,
+            theme_id,
+            event_id,
+            artwork_id
+        FROM t_imgs
+        WHERE img_id = #{imgId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_imgs
+        SET is_del = 0
+        WHERE img_id = #{imgId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_imgs
+        SET is_del = 1
+        WHERE img_id = #{imgId}
+    </update>
+
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT img_path,
+               is_del
+        FROM t_imgs
+        WHERE img_path = #{imgPath}
+          AND is_del = 1;
+    </select>
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.CitiesDao">
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Cities">
+        <id property="cityId" column="city_id"/>
+        <result property="cityName" column="city_name"/>
+        <result property="description" column="description"/>
+        <result property="dateTime" column="date_time"/>
+        <result property="isDel" column="is_del"/>
+        <result property="districtId" column="district_id"/>
+        <result property="postalCodeId" column="postal_code_id"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into t_cities(city_id,
+                             city_name,
+                             description,
+                             date_time,
+                             district_id,
+                             postal_code_id)
+        values(#{cityId},#{cityName},#{description},now(),#{districtId},#{postalCodeId})
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT city_id,
+               city_name,
+               description,
+               date_time,
+               is_del,
+               district_id,
+               postal_code_id
+        FROM t_cities
+        WHERE city_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT city_id,
+               city_name,
+               description,
+               date_time,
+               is_del,
+               district_id,
+               postal_code_id
+        FROM t_cities
+        WHERE city_id = #{cityId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_cities
+        SET is_del = 0
+        WHERE city_id = #{cityId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_cities
+        SET is_del = 1
+        WHERE city_id = #{cityId}
+    </update>
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT city_name,
+               is_del
+        FROM t_cities
+        WHERE city_name = #{cityName}
+          AND is_del = 1;
+    </select>
+
+</mapper>
+
+

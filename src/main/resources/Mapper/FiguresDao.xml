@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.FiguresDao">
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Figures">
+        <id column="figure_id" property="figureId" jdbcType="BIGINT"/>
+        <result column="figure_name" property="figureName" jdbcType="VARCHAR"/>
+        <result column="birth_date" property="birthDate" jdbcType="DATE"/>
+        <result column="death_date" property="deathDate" jdbcType="DATE"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="date_time" property="dateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_del" property="isDel" jdbcType="INTEGER"/>
+        <result column="city_id" property="cityId" jdbcType="BIGINT"/>
+        <result column="event_id" property="eventId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into t_figures(
+            figure_id,
+            figure_name,
+            birth_date,
+            death_date,
+            description,
+            date_time,
+            city_id,
+            event_id
+        )
+        values(
+                  #{figureId},
+                  #{figureName},
+                  #{birthDate},
+                  #{deathDate},
+                  #{description},
+                  now(),
+                  #{cityId},
+                  #{eventId}
+              )
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+            figure_id,
+            figure_name,
+            birth_date,
+            death_date,
+            description,
+            date_time,
+            is_del,
+            city_id,
+            event_id
+        FROM t_figures
+        WHERE figure_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT
+            figure_id,
+            figure_name,
+            birth_date,
+            death_date,
+            description,
+            date_time,
+            is_del,
+            city_id,
+            event_id
+        FROM t_figures
+        WHERE figure_id = #{figureId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_figures
+        SET is_del = 0
+        WHERE figure_id = #{figureId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_figures
+        SET is_del = 1
+        WHERE figure_id = #{figureId}
+    </update>
+
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT figure_name,
+               is_del
+        FROM t_figures
+        WHERE figure_name=#{figureName}
+          AND is_del = 1;
+    </select>
+</mapper>

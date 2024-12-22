@@ -2,27 +2,131 @@ spring:
   application:
     name: ArtisticHorizons
   mvc:
-    path match:
+    path-match:
       matching-strategy: ant_path_matcher
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/artistic_horizons?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: 20021004@Dahuzi
+    password: kQKfRi!hQ7D2
+    url: jdbc:mysql://10.10.59.116:3306/db_artistic_horizons?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&charecterEncoding=utf8mb4&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2b8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql://10.10.59.116:3306/db_artistic_horizons?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&charecterEncoding=utf8mb4&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2b8
+      username: root
+      password: kQKfRi!hQ7D2
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      # 连接池的配置信息
+      # 初始化大小，最小，最大
+      initial-size: 20
+      min-idle: 20
+      maxActive: 50
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      #PS Cache只针对存储过程有效，能提升性能，mysql基本不考虑开启；oracle的话，如果有存储过程可以开启，如内存允许就可以把maxOpenPreparedStatements设置大一点，不如到100。
+      poolPreparedStatements: false
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filter:
+        stat:
+          merge-sql: true
+          slow-sql-millis: 50
+        wall:
+        log4j:
+          connection-log-enabled: true
 
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      # connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 配置DruidStatFilter
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      # 配置DruidStatViewServlet
+      stat-view-servlet:
+        # 开启druid监控界面
+        enabled: true
+        url-pattern: "/druid/*"
+        # IP白名单(没有配置或者为空，则允许所有访问)
+        allow:
+        # IP黑名单 (存在共同时，deny优先于allow)
+        deny:
+        #  禁用HTML页面上的“Reset All”功能
+        reset-enable: false
+        # 登录名
+        login-username: StephenHu
+        # 登录密码
+        login-password: hu031028
 server:
   port: 8888
-
 mybatis-plus:
-  mapper-locations: classpath*:mapper/*.xml
+  mapper-locations: classpath:Mapper/*.xml
   type-aliases-package: com.stephenhu.artistic_horizons.model
   configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true  # 修改为 true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
 
 snowflake:
   start-time-stamp: 1577808000000
   work-id: 1
   data-center-id: 1
 
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    #自定义swagger前端请求路径,输入http:localhost:8080/swagger-ui.html会自动重定向到swagger页面
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs    #swagger后端请求地址
+    enabled: true   #是否开启文档功能
+  group-configs:
+    - group: 'default'   #分组名称
+      paths-to-match: '/**'   #配置需要匹配的路径,默认为/**
+      packages-to-scan: com.stephenhu.artistic_horizons    #配置要扫描包的路径,一般配置到启动类所在的包名
 
+# knife4j的增强配置，不需要增强可以不配(建议配置一下)
+knife4j:
+  enable: true    #开启knife4j,无需添加@EnableKnife4j注解
+  setting:
+    language: zh_cn   #中文
+    swagger-model-name: 实体类列表   #重命名SwaggerModel名称
+  #开启Swagger的Basic认证功能,默认是false
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: StephenHu
+    # Basic认证密码
+    password: hu031028
+
+############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
+sa-token:
+  # token 名称（同时也是 cookie 名称）
+  token-name: satoken
+  # token 有效期（单位：秒） 默认30天，-1 代表永久有效
+  timeout: 84600
+  # token 最低活跃频率（单位：秒），如果 token 超过此时间没有访问系统就会被冻结，默认-1 代表不限制，永不冻结
+  active-timeout: -1
+  # 是否允许同一账号多地同时登录 （为 true 时允许一起登录, 为 false 时新登录挤掉旧登录）
+  is-concurrent: false
+  # 在多人登录同一账号时，是否共用一个 token （为 true 时所有登录共用一个 token, 为 false 时每次登录新建一个 token）
+  is-share: true
+  # token 风格（默认可取值：uuid、simple-uuid、random-32、random-64、random-128、tik）
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true
+StephenHuEncryptUtil:
+  RSA-key-size: 2048

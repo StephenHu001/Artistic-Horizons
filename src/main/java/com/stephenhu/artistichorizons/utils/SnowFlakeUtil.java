@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Stephen Hu
+ * 雪花算法，搭配config使用配置
  */
 @Component
-public class SnowFlakeUtil {
+public final class SnowFlakeUtil {
     private static long startTimeStamp;
     private static long workID;
     private static long dataCenterID;
@@ -59,7 +60,5 @@ public class SnowFlakeUtil {
         long ID = handleDataCenterID | sequence;
         return ID;
     }
-    static void main(String[] args){
-        System.out.println(SnowFlakeUtil.getID());
-    }
+
 }
