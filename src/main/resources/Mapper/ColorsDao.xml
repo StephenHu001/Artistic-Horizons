@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.ColorsDao">
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Colors">
+        <id property="colorId" column="color_id"/>
+        <result property="colorName" column="color_name"/>
+        <result property="colorRgb" column="color_rgb"/>
+        <result property="dateTime" column="date_time"/>
+        <result property="isDel" column="is_del"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into t_colors(color_id,color_name,color_rgb,date_time)
+        values(#{colorId},#{colorName},#{colorRgb},now())
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT color_id,
+               color_name,
+               color_rgb,
+               date_time,
+               is_del
+        FROM t_colors
+        WHERE color_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT color_id,
+               color_name,
+               color_rgb,
+               date_time,
+               is_del
+        FROM t_colors
+        WHERE color_id = #{colorId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_colors
+        SET is_del = 0
+        WHERE color_id = #{colorId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_colors
+        SET is_del = 1
+        WHERE color_id = #{colorId}
+    </update>
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT color_name,
+               color_rgb,
+               is_del
+        FROM t_colors
+        WHERE color_name = #{colorName}
+        Or color_rgb = #{colorRgb}
+        AND is_del = 1;
+    </select>
+
+</mapper>
+
+

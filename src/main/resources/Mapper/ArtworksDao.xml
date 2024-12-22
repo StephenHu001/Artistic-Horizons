@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.ArtworksDao">
+
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Artworks">
+        <id property="artworkId" column="artwork_id"/>
+        <result property="artworkName" column="artwork_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="description" column="description"/>
+        <result property="dateTime" column="date_time"/>
+        <result property="isDel" column="is_del"/>
+        <result property="materialId" column="material_id"/>
+        <result property="colorId" column="color_id"/>
+        <result property="artistId" column="artist_id"/>
+        <result property="eventId" column="event_id"/>
+        <result property="themeId" column="theme_id"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into t_artworks(artwork_id,
+                               artwork_name,
+                               create_time,
+                               description,
+                               date_time,
+                               material_id,
+                               color_id,
+                               artist_id,
+                               event_id,
+                               collection_id,
+                               theme_id)
+        values(#{artworkId},#{artworkName},#{createTime},#{description},now(),#{materialId},#{colorId},#{artistId},#{eventId},#{collectionId},#{themeId})
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT artwork_id,
+               artwork_name,
+               create_time,
+               description,
+               date_time,
+               is_del,
+               material_id,
+               color_id,
+               artist_id,
+               event_id,
+               collection_id,
+               theme_id
+        FROM t_artworks
+        WHERE artwork_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT artwork_id,
+               artwork_name,
+               create_time,
+               description,
+               date_time,
+               is_del,
+               material_id,
+               color_id,
+               artist_id,
+               event_id,
+               collection_id,
+               theme_id
+        FROM t_artworks
+        WHERE artwork_id = #{artworkId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_artworks
+        SET is_del = 0
+        WHERE artwork_id = #{artworkId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_artworks
+        SET is_del = 1
+        WHERE artwork_id = #{artworkId}
+    </update>
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT artwork_name,
+               is_del
+        FROM t_artworks
+        WHERE artwork_name = #{artworkName}
+          AND is_del = 1;
+    </select>
+
+</mapper>

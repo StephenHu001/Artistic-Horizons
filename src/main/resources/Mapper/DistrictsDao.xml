@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stephenhu.artistichorizons.dao.DistrictsDao">
+    <resultMap id="BaseResultMap" type="com.stephenhu.artistichorizons.pojo.Districts">
+        <id property="districtId" column="district_id" jdbcType="BIGINT"/>
+        <result property="districtName" column="district_name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="dateTime" column="date_time" jdbcType="TIMESTAMP"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="countryId" column="country_id" jdbcType="BIGINT"/>
+    </resultMap>
+    <insert id="insert">
+        insert into t_districts(district_id,district_name,description,date_time,country_id)
+        values(#{districtId},#{districtName},#{description},now(),#{countryId})
+    </insert>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT district_id,
+               district_name,
+               description,
+               date_time,
+               is_del,
+               country_id
+        FROM t_districts
+        WHERE district_id != 0
+          AND is_del = 1
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT district_id,
+               district_name,
+               description,
+               date_time,
+               is_del,
+               country_id
+        FROM t_districts
+        WHERE district_id = #{districtId}
+          AND is_del = 1
+    </select>
+
+    <delete id="delById">
+        UPDATE t_districts
+        SET is_del = 0
+        WHERE district_id = #{districtId}
+    </delete>
+
+    <update id="rollbackById">
+        UPDATE t_districts
+        SET is_del = 1
+        WHERE district_id = #{districtId}
+    </update>
+
+    <select id="findRepeat" parameterType="map" resultMap="BaseResultMap">
+        SELECT district_name,
+               is_del
+        FROM t_districts
+        WHERE district_name=#{districtName}
+          AND is_del = 1;
+    </select>
+
+</mapper>
+
+
