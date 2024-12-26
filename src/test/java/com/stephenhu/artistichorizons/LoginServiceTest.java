@@ -61,7 +61,7 @@ public class LoginServiceTest {
     public void loginTest() throws Exception {
         //前端模拟账号密码
         long account = 3474584031L;
-        String password = "20021004@Dahuzi";
+        String password = "No";
 
         //这是登录第一步，先要验证账号存在,存在后端就给出公钥给前端
         ResultUtil<String> result1 = adminsService.toFindAccount(account);
