@@ -6,7 +6,7 @@ spring:
       matching-strategy: ant_path_matcher
   datasource:
     username: root
-    password: kQKfRi!hQ7D2
+    password: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     url: jdbc:mysql://10.10.59.116:3306/db_artistic_horizons?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&charecterEncoding=utf8mb4&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2b8
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
